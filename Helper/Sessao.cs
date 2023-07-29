@@ -11,10 +11,12 @@ namespace ControleDeContatos.Helper
             _httpContext = httpContext;
         }
 
-        public UsuarioModel BuscarSessaoDoUsuario()
+        public UsuarioModel? BuscarSessaoDoUsuario()
         {
             string sessaoUsuario = _httpContext.HttpContext.Session.GetString("sessaoUsuarioLogado");
+
             if (string.IsNullOrEmpty(sessaoUsuario)) return null;
+
             return JsonConvert.DeserializeObject<UsuarioModel>(sessaoUsuario);
         }
 
@@ -26,7 +28,7 @@ namespace ControleDeContatos.Helper
 
         public void RemoverSessaoDoUsuario()
         {
-            throw new NotImplementedException();
+            _httpContext.HttpContext.Session.Remove("sessaoUsuarioLogado");
         }
     }
 }
